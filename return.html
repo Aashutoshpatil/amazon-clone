@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Returns & Orders</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #f3f3f3;
+    padding: 10px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px 10px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.order {
+    background: #fff;
+    padding: 15px;
+    border-radius: 4px;
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.order img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.details {
+    flex: 1;
+    min-width: 250px;
+}
+
+.details h3 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+
+.order-id {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.order-date {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.status {
+    color: green;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.actions button {
+    background: #ffd814;
+    border: 1px solid #fcd200;
+    padding: 8px 12px;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-right: 5px;
+}
+
+.actions button:hover {
+    background: #ffcd3d;
+}
+
+.return-box {
+    display: none;
+    background: #fafafa;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.timeline {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.timeline span {
+    display: block;
+    padding: 3px 0;
+}
+
+.empty {
+    background: #fff;
+    padding: 30px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+/* Tablet responsive */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px 10px;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    .order {
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .order img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .details {
+        min-width: 200px;
+    }
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    h2 {
+        font-size: 1rem;
+        margin-bottom: 15px;
+    }
+
+    .order {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .order img {
+        width: 100%;
+        height: auto;
+        max-width: 150px;
+        max-height: 150px;
+    }
+
+    .details {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .details h3 {
+        font-size: 0.95rem;
+    }
+
+    .order-id,
+    .order-date {
+        font-size: 0.8rem;
+    }
+
+    .status {
+        font-size: 0.9rem;
+    }
+
+    .actions {
+        width: 100%;
+    }
+
+    .actions button {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 5px;
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .return-box {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    select {
+        padding: 6px;
+        font-size: 0.9rem;
+    }
+
+    .timeline {
+        font-size: 0.85rem;
+    }
+
+    .empty {
+        padding: 20px 10px;
+    }
+
+    .empty h3 {
+        font-size: 1rem;
+    }
+
+    .empty p {
+        font-size: 0.9rem;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>Your Orders</h2>
+
+<div id="orders"></div>
+
+</div>
+
+<script>
+// DEMO ORDER DATA
+let orders = [
+{
+    id:"AMZ123456",
+    name:"Apple iPhone 15",
+    price:79999,
+    date:"20 Dec 2025",
+    status:"Delivered",
+    img:"https://m.media-amazon.com/images/I/71d7rfSl0wL._SX679_.jpg",
+    returned:false,
+    timeline:["Ordered","Shipped","Delivered"]
+},
+{
+    id:"AMZ789012",
+    name:"Noise Smartwatch",
+    price:2499,
+    date:"18 Dec 2025",
+    status:"Delivered",
+    img:"https://m.media-amazon.com/images/I/61y2VVWcGBL._SX679_.jpg",
+    returned:false,
+    timeline:["Ordered","Shipped","Delivered"]
+}
+];
+
+const box = document.getElementById("orders");
+
+function renderOrders(){
+    box.innerHTML = "";
+
+    if(orders.length === 0){
+        box.innerHTML = `
+        <div class="empty">
+            <h3>No orders found</h3>
+            <p>Start shopping now 🛍️</p>
+        </div>`;
+        return;
+    }
+
+    orders.forEach((o,i)=>{
+        box.innerHTML += `
+        <div class="order">
+            <img src="${o.img}">
+            <div class="details">
+                <h3>${o.name}</h3>
+                <p>Order ID: ${o.id}</p>
+                <p>Order Date: ${o.date}</p>
+                <p>Price: ₹${o.price}</p>
+                <p class="status">${o.status}</p>
+
+                <div class="timeline">
+                    ${o.timeline.map(t=>`<span>✔ ${t}</span>`).join("")}
+                </div>
+
+                ${
+                    o.status==="Delivered" && !o.returned
+                    ? `<div class="actions">
+                        <button onclick="openReturn(${i})">Return / Replace</button>
+                      </div>`
+                    : o.returned
+                    ? `<p style="color:#b12704;">Return in progress</p>`
+                    : ""
+                }
+
+                <div class="return-box" id="return${i}">
+                    <label>Select return reason</label>
+                    <select>
+                        <option>Wrong item received</option>
+                        <option>Damaged product</option>
+                        <option>Quality not as expected</option>
+                        <option>Size issue</option>
+                    </select>
+                    <button onclick="submitReturn(${i})">Submit Return</button>
+                </div>
+
+            </div>
+        </div>`;
+    });
+}
+
+function openReturn(index){
+    document.getElementById("return"+index).style.display="block";
+}
+
+function submitReturn(index){
+    orders[index].returned = true;
+    orders[index].status = "Return Requested";
+    orders[index].timeline.push("Return Requested","Pickup Scheduled","Refund Initiated");
+    renderOrders();
+    alert("Return request submitted successfully!");
+}
+
+renderOrders();
+</script>
+
+</body>
+</html>
