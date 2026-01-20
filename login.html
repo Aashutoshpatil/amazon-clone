@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login / Sign Up</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.auth-container {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 350px;
+    box-shadow: 0px 0px 15px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.auth-container h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.auth-container input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.auth-container input:focus {
+    outline: none;
+    border-color: #febd68;
+    box-shadow: 0 0 5px rgba(254, 189, 104, 0.5);
+}
+
+.auth-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #f0c14b;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.auth-container button:hover {
+    background-color: #daa520;
+}
+
+.auth-container p {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.auth-container a {
+    color: #007185;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.auth-container a:hover {
+    color: #c45911;
+    text-decoration: underline;
+}
+
+/* Responsive for tablets */
+@media (max-width: 480px) {
+    .auth-container {
+        padding: 20px;
+        max-width: 100%;
+    }
+
+    .auth-container h2 {
+        font-size: 1.2rem;
+    }
+
+    .auth-container input {
+        padding: 10px;
+        font-size: 0.95rem;
+    }
+
+    .auth-container button {
+        padding: 10px;
+        font-size: 0.95rem;
+    }
+
+    .auth-container p {
+        font-size: 12px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="auth-container" id="loginBox">
+    <h2>Login</h2>
+    <input type="email" id="loginEmail" placeholder="Email">
+    <input type="password" id="loginPass" placeholder="Password">
+    <button onclick="login()">Login</button>
+    <p>Don't have an account? <a onclick="showSignup()">Sign Up</a></p>
+</div>
+
+<div class="auth-container" id="signupBox" style="display:none">
+    <h2>Sign Up</h2>
+    <input type="text" id="signupName" placeholder="Name">
+    <input type="email" id="signupEmail" placeholder="Email">
+    <input type="password" id="signupPass" placeholder="Password">
+    <button onclick="signup()">Sign Up</button>
+    <p>Already have an account? <a onclick="showLogin()">Login</a></p>
+</div>
+
+<script>
+// SHOW LOGIN / SIGNUP
+function showSignup() {
+    document.getElementById("loginBox").style.display = "none";
+    document.getElementById("signupBox").style.display = "block";
+}
+function showLogin() {
+    document.getElementById("signupBox").style.display = "none";
+    document.getElementById("loginBox").style.display = "block";
+}
+
+// SIGNUP FUNCTION
+function signup() {
+    const name = document.getElementById("signupName").value;
+    const email = document.getElementById("signupEmail").value;
+    const pass = document.getElementById("signupPass").value;
+
+    if(!name || !email || !pass) {
+        alert("Please fill all fields");
+        return;
+    }
+
+    const user = { name, email, pass };
+    localStorage.setItem("amazonUser", JSON.stringify(user));
+    alert("Signup successful! Please login.");
+    showLogin();
+}
+
+// LOGIN FUNCTION
+function login() {
+    const email = document.getElementById("loginEmail").value;
+    const pass = document.getElementById("loginPass").value;
+
+    const user = JSON.parse(localStorage.getItem("amazonUser"));
+    if(!user || user.email !== email || user.pass !== pass) {
+        alert("Invalid login credentials");
+        return;
+    }
+
+    localStorage.setItem("amazonLoggedIn", "true");
+    alert(`Welcome, ${user.name}!`);
+    // redirect to main page (update path as needed)
+    window.location.href = "index.html";
+}
+</script>
+</body>
+</html>
