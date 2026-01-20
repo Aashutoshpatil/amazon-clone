@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="index.css">
+    
+    
+</head>
+<body>
+
+    
+    <header>
+        
+        <div class="navbar">
+            <div class="nav-logo">
+                <div class="logo border">
+                    <img src="/images/amazonlogo.png" alt="image">
+                </div>
+            </div>
+            <div class="nav-address border" >
+                <p class="add-first">Deliver to</p>
+                <div class="add-icon">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <p class="add-second">India</p>
+                </div>
+            </div>
+            <div class="nav-search">
+               <select class="search-select">
+                   <option>All</option>
+               </select>
+               <input placeholder="search Amazon" class="search-input">
+               <div class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></div>   
+            </div>
+            
+            <div class="nav-signing border">
+  <p><a href="login.html"><span>hello, sign in</span></a></p>
+  <p class="nav-second">Account & lists</p>
+</div>
+
+
+    
+            <div class="nav-return border">
+    <a href="return.html" class="return-link">
+        <p><span>Return</span></p>
+        <p class="nav-second">& Orders</p>
+    </a>
+</div>
+
+            <div class="nav-cart">
+    <a href="cart.html" class="cart-link">
+        <i class="fa-solid fa-cart-shopping"></i>
+        Cart
+    </a>
+</div>
+
+        </div>
+        <div class="panel">
+            <div class="panel-all">
+                <i class="fa-solid fa-bars"></i>
+                All
+            </div>
+            <div class="panel-ops ">
+                <p>today's deals</p>
+                <p>customer service</p>
+                <p>Registry</p>
+                <p>Gift card</p>
+                <p>Sell</p>
+            </div>
+            <div class="panel-deals">
+                shop deals in Electronisc
+            </div>
+        </div>
+    </header>
+
+    <div class="hero-section"></div>
+    <div class="hero-msg">
+        <p>You are on amazon.com You can also shop on amazon india for millions of product with fast local delivery. <a>Click here to go amazon.in</a></p>
+    </div>
+
+    <h1>Product List</h1>
+    <div id="products" class="product-container"></div>
+
+    <div class="shop-section">
+        <!--
+        <div class="box">
+            <div class="box-content">
+                <h2>Health & Personal Care </h2>
+                <div class="box-img" style="background-image: url(images/box1health.avif);"></div>
+                <p>See more</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-content">
+                <h2>washing machine</h2>
+                <div class="box-img" style="background-image: url(images/box2.jpg);"></div>
+                <p>See more</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-content">
+                <h2> Ac </h2>
+                <div class="box-img" style="background-image: url(images/box3.jpg);"></div>
+                <p>See more</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-content">
+                <h2> </h2>
+                <div class="box-img" style="background-image: url(images/box4.jpg);"></div>
+                <p>See more</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-content">
+                <h2>Health & Personal Care </h2>
+                <div class="box-img" style="background-image: url(images/box5.jpg);"></div>
+                <p>See more</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-content">
+                <h2>Health & Personal Care </h2>
+                <div class="box-img" style="background-image: url(images/box6.jpg);"></div>
+                <p>See more</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-content">
+                <h2>Health & Personal Care </h2>
+                <div class="box-img" style="background-image: url(images/box7.jpg);"></div>
+                <p>See more</p>
+            </div>
+        </div>
+        <div class="box">
+            <div class="box-content">
+                <h2> </h2>
+                <div class="box-img" style="background-image: url(images/box8.jpg);"></div>
+                <p>See more</p>
+            </div>
+        </div>
+        -->
+    </div>
+
+    <div id="products"></div>
+
+<!-- SEE MORE MODAL -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">×</span>
+    <img id="m-img">
+    <h2 id="m-title"></h2>
+    <p id="m-desc"></p>
+    <p><b>Brand:</b> <span id="m-brand"></span></p>
+    <p><b>Rating:</b> ⭐ <span id="m-rating"></span></p>
+    <p><b>Price:</b> ₹<span id="m-price"></span></p>
+
+    <button onclick="buyNow()">Buy Now</button>
+    <button onclick="addToCart()">Add to Cart</button>
+  </div>
+  <div class="product">
+  <img src="product1.jpg" alt="Product">
+  <h3 class="title">Wireless Mouse</h3>
+  <p class="price">599</p>
+  <button onclick="addToCart(1, 'Wireless Mouse', 599, 'product1.jpg')">
+    Add to Cart
+  </button>
+</div>
+
+<span id="cart-count">0</span>
+
+</div>
+
+
+    <script src="first.js"></script>
+</body>
+</html>
