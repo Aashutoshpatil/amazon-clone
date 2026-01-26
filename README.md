@@ -4,7 +4,7 @@ An Amazon Clone built using HTML, CSS, and JavaScript that replicates the core U
 This project focuses on frontend layout, styling, and basic interactivity.
 
 🔗 Live Demo:
-👉 https://aashutoshpatil.github.io/amazon-clone/
+👉 https://amazon-clone-two-beryl.vercel.app/
 
 🚀 Features
 
